@@ -1,27 +1,16 @@
 //......................Load Data Into Popup......................//
 chrome.runtime.sendMessage({ method: 'getInfo' }, function(response) {
-    var informationNode = document.querySelector('div.popupRow');
-    var errorNode = document.getElementById('popupError');
-    if (response) {
-        informationNode.style.display = 'block';
-        errorNode.style.display = 'none';
-        var totalHours = response.totalHours;
-        var billableHours = response.billableHours;
-        var utilization = response.utilization;
-        var hoursTilGoal = response.hoursTilGoal;
+    //Use this in the real jawn but keep testin with sherlock.
+    //var corpus = response.corpus;
+    var markovComment = new markov(corpus, "string", /[.^\w]+ /g); //sherlock holmes corpus
 
-        var totalHoursNode = document.querySelector('div.popupTotal span');
-        var billableHoursNode = document.querySelector('div.popupBillable span');
-        var utilizationNode = document.querySelector('div.popupPercentage span');
-        var hoursTilGoalNode = document.querySelector('div.popupGoal span');
-
-        totalHoursNode.innerHTML = totalHours;
-        billableHoursNode.innerHTML = billableHours;
-        utilizationNode.innerHTML = utilization + '%';
-        hoursTilGoalNode.innerHTML = hoursTilGoal;
-    } else {
-        //User is on the wrong page. No data loaded. Display error.
-        informationNode.style.display = 'none';
-        errorNode.style.display = 'block';
+    //generate a random max i value and a random gen value to get different sentences.
+    var mSh = "";
+    var outString = "";
+    for (var i = 0; i < 2; i++) {
+        mSh += markovComment.gen(20) + " ";
     }
+    outString += mSh;
+
+    console.log(outString);
 });
