@@ -1,0 +1,103 @@
+/* @override 
+	http://www.theresamonaco.com/uext/main.css
+	http://theresamonaco.com/uext/main.css
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #ccc;
+}
+#mainPopup {
+	width: 250px;
+	font-family: 'Open Sans', Helvetica, sans-serif;
+	background: #f5f7f8;
+}
+#popupHeaderTop {
+	color: #fff;
+	background: #272929;
+	padding: 4px 11px 5px 11px;
+	text-align: center;
+}
+#popupHeaderBottom {
+	color: #fff;
+	background: #404344;
+	padding: 6px 11px;
+	text-align: center;
+}
+#popupBody {
+	padding: 22px 11px;
+}
+div.popupColumn {
+	margin: 22px 0;
+	overflow: hidden;
+	clear: both;
+}
+div.popupColumn:first-child {
+	margin-top: 0;
+}
+div.popupColumn:last-child {
+	margin-bottom: 0;
+}
+div.popupNumber {
+	float: left;
+	display: block;
+	width: 46%;
+	border-right: 1px solid #cfd7dc;
+	text-align: right;
+}
+div.popupNumber span {
+	display: inline-block;
+	padding-right: 11px;
+	font-size: 38px;
+	line-height: 54px;
+}
+div.popupTotal span {
+	color: #298fce;
+}
+div.popupBillable span {
+	color: #179848;
+}
+div.popupPercentage span {
+	color: #ffb900;
+}
+div.popupGoal span {
+	color: #d74137;
+}
+div.label {
+	float: left;
+	display: block;
+	width: 53%;
+	font-size: 11px;
+	text-transform: uppercase;
+}
+div.label span {
+	color: #686c6e;
+	display: inline-block;
+	margin-top: 21px;
+	padding-left: 11px;
+	letter-spacing: 0.5px;
+}
+#popupError {
+	display: none;
+	text-align: center;
+}
+h3 {
+	color: #686c6e;
+	margin-bottom: 5px;
+}
+h4 {
+	font-size: 16px;
+	letter-spacing: 0.5px;
+}
+h6 {
+	font-size: 10px;
+	letter-spacing: 0.5px;
+}
+p {
+	color: #686c6e;
+	font-size: 14px;
+}

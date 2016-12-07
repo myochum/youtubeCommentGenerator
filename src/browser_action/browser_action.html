@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="main.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <script src="popup.js"></script>
+    <div id="mainPopup">
+        <div id="popupHeaderTop">
+            <h6>Monetate Delivery Engineering</h6>
+        </div>
+        <div id="popupHeaderBottom">
+            <h4>Utilization This Week</h4>
+        </div>
+        <div id="popupBody">
+            <div class="popupRow">
+                <div class="popupColumn">
+                    <div class="popupNumber popupTotal">
+                        <span></span>
+                    </div>
+                    <div class="label">
+                        <span>Total Hours</span>
+                    </div>
+                </div>
+                <div class="popupColumn">
+                    <div class="popupNumber popupBillable">
+                        <span></span>
+                    </div>
+                    <div class="label">
+                        <span>Billable Hours</span>
+                    </div>
+                </div>
+                <div class="popupColumn popupGoal">
+                    <div class="popupNumber">
+                        <span></span>
+                    </div>
+                    <div class="label">
+                        <span>Hours Til Goal</span>
+                    </div>
+                </div>
+                <div class="popupColumn">
+                    <div class="popupNumber popupPercentage">
+                        <span></span>
+                    </div>
+                    <div class="label">
+                        <span>Utilization</span>
+                    </div>
+                </div>
+            </div>
+            <!-- end popupRow -->
+            <div id="popupError">
+                <h3>No Data Available!</h3>
+                <p>Please go to your weekly view of Harvest in order to see your utilization data here.</p>
+            </div>
+        </div>
+        <!-- end popupBody -->
+    </div>
+    <!-- end mainPopup -->
+</body>
+
+</html>
