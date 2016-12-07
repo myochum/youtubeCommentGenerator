@@ -1,4 +1,4 @@
-Markov Text Generator
+Markov Text Generator: https://github.com/BrianHicks/Markov-Generator
 =====================
 
 Why?

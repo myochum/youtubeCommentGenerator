@@ -1,35 +1,3 @@
-//@ sourceURL=inject.js
-
-//......................Make that chain......................//
-
-var sendMessage = function() {
-
-    //Get the things.
-    function grabComments() {
-        var videoId = /(?:\?v=)(.+)/.exec(window.location.search)[1];
-        var request = gapi.client.youtube.commentThreads.list({
-            videoId: 'r_Ua8iOR0g8',
-            part: 'snippet',
-            key: OAUTH2_CLIENT_ID
-        });
-
-        request.execute(function(response) {
-            return response;
-        });
-    }
-    debugger;
-    response = grabComments();
-    console.log(response);
-
-    //......................Popup Message Send......................//
-    chrome.runtime.sendMessage({ method: 'sendInfo', response: response });
-}
-
-
-
-
-//..................................JS FROM GOOGLE API TO INIT..................................//
-
 // The client ID is obtained from the {{ Google Cloud Console }}
 // at {{ https://cloud.google.com/console }}.
 // If you run this code from a server other than http://localhost,
@@ -84,13 +52,6 @@ function handleAuthResult(authResult) {
 // are required to use the Google APIs JS client. More info is available at
 // https://developers.google.com/api-client-library/javascript/dev/dev_jscript#loading-the-client-library-and-the-api
 function loadAPIClientInterfaces() {
-  gapi.client.load('youtube', 'v3', function() {
-    sendMessage();
-  });
+  gapi.client.load('youtube', 'v3', function() {});
 }
 
-
-//......................Main Functionality......................//
-
-//Send initial message on page load.
-//sendMessage();
