@@ -1,16 +1,23 @@
-//......................Load Data Into Popup......................//
+//......................Make The Comment......................//
 chrome.runtime.sendMessage({ method: 'getInfo' }, function(response) {
-    //Use this in the real jawn but keep testin with sherlock.
-    //var corpus = response.corpus;
-    var markovComment = new markov(corpus, "string", /[.^\w]+ /g); //sherlock holmes corpus
+    var markovComment = new markov(response, "string", /[.^\S]+ /g);
+
+    //For random sentence ender character.
+    var sentenceEnders = ['. ', '? ', '! ', ' '];
 
     //generate a random max i value and a random gen value to get different sentences.
-    var mSh = "";
     var outString = "";
-    for (var i = 0; i < 2; i++) {
-        mSh += markovComment.gen(20) + " ";
+    var phraseLength = Math.floor(Math.random() * 11) + 1;
+    var callTime = Math.floor(Math.random() * 6) + 1;
+    for (var i = 0; i < callTime; i++) {
+        var sentenceEnder = sentenceEnders[Math.floor(Math.random() * 4)];
+        //Generate a sentence and remove any extra white space.
+        var sentence = markovComment.gen(phraseLength).replace(/^\s+|\s+$/g,'');
+        outString += sentence + sentenceEnder;
     }
-    outString += mSh;
-
     console.log(outString);
+
+    //Stick it in the popup.
+    var commentNode = document.getElementById('popupComment');
+    commentNode.innerHTML = outString;
 });
