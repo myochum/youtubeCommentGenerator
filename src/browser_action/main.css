@@ -10,8 +10,7 @@ body {
     border-radius: 2px;
 }
 
-#commentButton {
-    float: right;
+button {
     height: 25px;
     margin: 0.5em auto;
     background-color: #167ac6;
@@ -24,4 +23,12 @@ body {
     cursor: pointer;
     border-radius: 2px;
     box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+}
+
+#commentButton {
+	float: right;
+}
+
+#generateButton {
+	float: left;
 }
