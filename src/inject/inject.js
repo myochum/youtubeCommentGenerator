@@ -4,7 +4,12 @@
 var OAUTH2_CLIENT_ID = 'AIzaSyDoiYgpHJxnCvIFFt_o0uhNLbSsYotLuog';
 
 var makeTheCall = function() {
-    var videoId = /(?:\?v=)(.+)/.exec(window.location.search.split('&'))[1];
+    var videoId = /(?:\?v=)(.+)/.exec(window.location.search.split('&')[0]) &&
+        /(?:\?v=)(.+)/.exec(window.location.search.split('&')[0])[1];
+    if (!videoId) {
+        //not on a video page
+        return;
+    }
     var queryURL = 'https://clients6.google.com/youtube/v3/commentThreads?part=snippet&videoId=' + videoId +
         '&key=' + OAUTH2_CLIENT_ID + '&maxResults=50&order=relevance&textFormat=plainText';
     $.getJSON(queryURL, function(data) {
@@ -21,7 +26,11 @@ var makeTheCall = function() {
             corpusStr += comment + ' ';
         }
         //......................Popup Message Send......................//
-        chrome.runtime.sendMessage({ method: 'sendInfo', response: corpusStr });
+        var responseObj = {
+            'corpusStr': corpusStr,
+            'videoId': videoId
+        };
+        chrome.runtime.sendMessage({ method: 'sendInfo', response: responseObj });
     });
 }
 makeTheCall();
@@ -38,5 +47,8 @@ chrome.runtime.onMessage.addListener(
         } else if (request.method == 'doOver') {
             //Popup says we ain't got data so GET IT.
             makeTheCall();
+        } else if (request.method == 'videoId'){
+            var videoId = /(?:\?v=)(.+)/.exec(window.location.search.split('&')[0])[1];
+            sendResponse({videoId: videoId});
         }
     });

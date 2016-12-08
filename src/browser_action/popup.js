@@ -1,15 +1,32 @@
+var videoId;
+
+var doOverFunc = function() {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, { method: "doOver" },
+            function(response) {});
+    });
+
+};
+
 //......................Make The Comment......................//
 chrome.runtime.sendMessage({ method: 'getInfo' }, function(response) {
-    //If we don't have a response. try this ish again.
-    if (!response) {
-        chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, { method: "doOver"},
-                function(response) {});
-        });
+    //If we don't have a response or this is a new video. try this ish again.
+    if (!response || !response.corpusStr) {
+        doOverFunc();
         return;
     }
 
-    var markovComment = new markov(response, "string", /[.^\S]+ /g);
+    //Ask the content script for the video ID.
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, { method: "videoId" },
+            function(response) {
+                if (videoId && response.videoId !== videoId) {
+                    doOverFunc();
+                }
+            });
+    });
+    videoId = response.videoId;
+    var markovComment = new markov(response.corpusStr, "string", /[.^\S]+ /g);
 
     //For random sentence ender character.
     var sentenceEnders = ['. ', '? ', '! ', ' '];
