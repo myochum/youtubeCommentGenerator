@@ -1,5 +1,14 @@
 //......................Make The Comment......................//
 chrome.runtime.sendMessage({ method: 'getInfo' }, function(response) {
+    //If we don't have a response. try this ish again.
+    if (!response) {
+        chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, { method: "doOver"},
+                function(response) {});
+        });
+        return;
+    }
+
     var markovComment = new markov(response, "string", /[.^\S]+ /g);
 
     //For random sentence ender character.
@@ -21,16 +30,23 @@ chrome.runtime.sendMessage({ method: 'getInfo' }, function(response) {
 
         //Stick it in the popup.
         commentNode.innerHTML = outString;
+
+        //Pick a comment message
+        var messages = document.querySelectorAll('#titleRandom h4:not(.active)');
+        var activeMessage = document.querySelector('#titleRandom h4.active');
+        activeMessage.className = '';
+        var randomMessageIndex = Math.floor(Math.random() * 6) + 1;
+        messages[randomMessageIndex].className = 'active';
     };
     generate();
 
     //Bind to comment button click.
     document.getElementById('commentButton').addEventListener('click', function() {
         //Send 'er in.
-        var OAUTH2_CLIENT_ID = 'AIzaSyDoiYgpHJxnCvIFFt_o0uhNLbSsYotLuog';
-        var videoId = /(?:\?v=)(.+)/.exec(window.location.search.split('&'))[1];
-        var queryURL = 'https://clients6.google.com/youtube/v3/commentThreads?part=snippet&videoId=' + videoId +
-            '&key=' + OAUTH2_CLIENT_ID + '&maxResults=50&order=relevance&textFormat=plainText';
+        // chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        //     chrome.tabs.sendMessage(tabs[0].id, { method: "sendComment", comment: commentNode.innerHTML},
+        //             function(response) {});
+        // });
 
     });
 
