@@ -2,9 +2,9 @@
 
 //Public key.
 var OAUTH2_CLIENT_ID = 'AIzaSyDoiYgpHJxnCvIFFt_o0uhNLbSsYotLuog';
-var videoId = /(?:\?v=)(.+)/.exec(window.location.search)[1];
+var videoId = /(?:\?v=)(.+)/.exec(window.location.search.split('&'))[1];
 var queryURL = 'https://clients6.google.com/youtube/v3/commentThreads?part=snippet&videoId=' + videoId +
-    '&key=' + OAUTH2_CLIENT_ID + '&maxResults=10&order=relevance&textFormat=plainText';
+    '&key=' + OAUTH2_CLIENT_ID + '&maxResults=50&order=relevance&textFormat=plainText';
 
 $.getJSON(queryURL, function(data) {
     //Sort through the data
