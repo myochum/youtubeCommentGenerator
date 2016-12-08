@@ -10,6 +10,7 @@ var doOverFunc = function() {
 
 //......................Make The Comment......................//
 chrome.runtime.sendMessage({ method: 'getInfo' }, function(response) {
+
     //If we don't have a response or this is a new video. try this ish again.
     if (!response || !response.corpusStr) {
         doOverFunc();
@@ -48,11 +49,16 @@ chrome.runtime.sendMessage({ method: 'getInfo' }, function(response) {
         //Stick it in the popup.
         commentNode.innerHTML = outString;
 
-        //Pick a comment message
-        var messages = document.querySelectorAll('#titleRandom h4:not(.active)');
+        //Pick a comment message and hide refresh message
+        var refreshMessage = document.querySelector('#titleRandom h3');
+        refreshMessage.style.display = 'none';
+
+        var messages = document.querySelectorAll('#titleRandom h4');
         var activeMessage = document.querySelector('#titleRandom h4.active');
-        activeMessage.className = '';
-        var randomMessageIndex = Math.floor(Math.random() * 6) + 1;
+        if (activeMessage){
+            activeMessage.className = '';
+        }
+        var randomMessageIndex = Math.floor(Math.random() * 7) + 1;
         messages[randomMessageIndex].className = 'active';
     };
     generate();
